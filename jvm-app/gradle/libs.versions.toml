@@ -3,7 +3,7 @@ jdk = "8"
 checkstyle = "8.45.1"
 
 [plugins]
-git-publish = "org.ajoberstar.git-publish:3.0.1" # max for JDK 8
+git-publish = "org.ajoberstar.git-publish:3.0.1" # max for jdk8
 pages = "com.hendraanggrian.pages:0.1"
 
 [libraries]

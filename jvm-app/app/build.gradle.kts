@@ -1,13 +1,13 @@
 plugins {
-    application
     java
+    application
     checkstyle
     jacoco
 }
 
-application.mainClass.set("$RELEASE_GROUP.app.MyApp")
-
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get()))
+
+application.mainClass.set("$RELEASE_GROUP.app.MyApp")
 
 checkstyle {
     toolVersion = libs.versions.checkstyle.get()

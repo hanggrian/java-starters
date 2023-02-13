@@ -1,6 +1,6 @@
 plugins {
-    application
     java
+    application
 }
 
 application.mainClass.set("com.example.MyApp")
