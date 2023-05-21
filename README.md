@@ -37,10 +37,14 @@ Components included in each template:
 
 Situational components differ by target:
 
-| | Plugins | Publications |
-| --- | --- | --- |
-| jvm-app | [Application] | |
-| jvm-library | | [Maven Central] |
+| | Plugins | Publications | Tests |
+| --- | --- | --- | --- |
+| android-app | [Android] | | [Robolectric] |
+| jvm-app | [Application] | | |
+| jvm-library | | [Maven Central] | |
+| multi-library | | [Maven Central] | |
 
 [Application]: https://docs.gradle.org/current/userguide/application_plugin.html
+[Android]: https://developer.android.com/studio/build/
 [Maven Central]: https://search.maven.org/
+[Robolectric]: http://robolectric.org/

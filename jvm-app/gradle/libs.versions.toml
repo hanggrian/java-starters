@@ -9,7 +9,7 @@ pages = "com.hendraanggrian.pages:0.1"
 [libraries]
 # lint
 checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
-rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.1"
+rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.2"
 # main
 # test
 truth = "com.google.truth:truth:1.1.3"
