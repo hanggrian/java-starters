@@ -12,4 +12,4 @@ checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checks
 rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.2"
 # main
 # test
-truth = "com.google.truth:truth:1.1.3"
+truth = "com.google.truth:truth:1.1.5"

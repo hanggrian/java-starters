@@ -22,8 +22,8 @@ Components included in each template:
   - [Google Truth](https://github.com/google/truth/) assertion tool.
 - Code styling:
   - [EditorConfig](https://editorconfig.org/) root file.
-  - [KtLint](https://github.com/pinterest/ktlint/) code linter with custom rules
-    [Rulebook](https://github.com/hendraanggrian/rulebook/).
+  - [CheckStyle](https://checkstyle.sourceforge.io/) code linter with custom
+    rules [Rulebook](https://github.com/hendraanggrian/rulebook/).
 - Website module:
   - [Pages Gradle Plugin](https://github.com/hendraanggrian/pages-gradle-plugin/)
     for generating webpage displaying README's content and documentation links
@@ -40,6 +40,7 @@ Situational components differ by target:
 | | Plugins | Publications | Tests |
 | --- | --- | --- | --- |
 | android-app | [Android] | | [Robolectric] |
+| android-library | [Android] | [Maven Central] | [Robolectric] |
 | jvm-app | [Application] | | |
 | jvm-library | | [Maven Central] | |
 | multi-library | | [Maven Central] | |
