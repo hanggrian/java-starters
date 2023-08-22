@@ -47,9 +47,8 @@
 
   <module name="TreeWalker">
     <!-- Additional rules -->
-    <module name="SummaryContinuation"/>
     <module name="TagDescriptionSentence"/>
-    <module name="ThrowExceptionAmbiguity"/>
+    <module name="ThrowAmbiguity"/>
 
     <module name="OuterTypeFilename"/>
     <module name="IllegalTokenText">

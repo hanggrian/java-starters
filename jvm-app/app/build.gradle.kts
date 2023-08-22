@@ -1,3 +1,5 @@
+val RELEASE_GROUP: String by project
+
 plugins {
     java
     application
@@ -17,5 +19,6 @@ checkstyle {
 dependencies {
     checkstyle(libs.checkstyle)
     checkstyle(libs.rulebook.checkstyle)
+    
     testImplementation(libs.truth)
 }

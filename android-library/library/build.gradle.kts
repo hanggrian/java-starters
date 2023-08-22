@@ -1,5 +1,7 @@
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-import com.vanniktech.maven.publish.SonatypeHost
+
+val RELEASE_GROUP: String by project
+val RELEASE_ARTIFACT: String by project
 
 plugins {
     alias(libs.plugins.android.library)
@@ -15,12 +17,7 @@ android {
     testOptions.unitTests.isIncludeAndroidResources = true
 }
 
-mavenPublishing {
-    publishToMavenCentral(SonatypeHost.S01)
-    signAllPublications()
-    pom(::configurePom)
-    configure(AndroidSingleVariantLibrary())
-}
+mavenPublishing.configure(AndroidSingleVariantLibrary())
 
 checkstyle {
     toolVersion = libs.versions.checkstyle.get()
@@ -30,6 +27,8 @@ checkstyle {
 dependencies {
     checkstyle(libs.checkstyle)
     checkstyle(libs.rulebook.checkstyle)
+
     implementation(libs.androidx.appcompat)
+
     testImplementation(libs.bundles.androidx.test)
 }
