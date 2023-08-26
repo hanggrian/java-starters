@@ -1,7 +1,3 @@
-import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import com.vanniktech.maven.publish.SonatypeHost
-
 val DEVELOPER_ID: String by project
 val DEVELOPER_NAME: String by project
 val DEVELOPER_URL: String by project
@@ -21,13 +17,24 @@ allprojects {
 }
 
 subprojects {
-    plugins.withType<JavaPlugin> {
+    plugins.withType<JavaPlugin>().configureEach {
         the<JavaPluginExtension>().toolchain.languageVersion
-            .set(JavaLanguageVersion.of(libs.versions.jdk.get()))
+            .set(JavaLanguageVersion.of(libs.versions.jdk.get().toInt()))
     }
-    plugins.withType<MavenPublishBasePlugin> {
-        configure<MavenPublishBaseExtension> {
-            publishToMavenCentral(SonatypeHost.S01)
+    plugins.withType<CheckstylePlugin>().configureEach {
+        configure<CheckstyleExtension> {
+            toolVersion = libs.versions.checkstyle.get()
+            configFile = rootDir.resolve("rulebook_checks.xml")
+        }
+    }
+    plugins.withType<com.vanniktech.maven.publish.MavenPublishBasePlugin> {
+        configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
+            configure(
+                com.vanniktech.maven.publish.JavaLibrary(
+                    com.vanniktech.maven.publish.JavadocJar.Javadoc()
+                )
+            )
+            publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.S01)
             signAllPublications()
             pom {
                 name.set(project.name)
@@ -55,4 +62,8 @@ subprojects {
             }
         }
     }
+}
+
+tasks.register(LifecycleBasePlugin.CLEAN_TASK_NAME) {
+    delete(buildDir)
 }

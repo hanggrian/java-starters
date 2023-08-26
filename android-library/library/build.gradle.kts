@@ -1,5 +1,3 @@
-import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-
 val RELEASE_GROUP: String by project
 val RELEASE_ARTIFACT: String by project
 
@@ -15,13 +13,6 @@ android {
     testNamespace = "$namespace.test"
     buildFeatures.buildConfig = false
     testOptions.unitTests.isIncludeAndroidResources = true
-}
-
-mavenPublishing.configure(AndroidSingleVariantLibrary())
-
-checkstyle {
-    toolVersion = libs.versions.checkstyle.get()
-    configFile = rootDir.resolve("rulebook_checks.xml")
 }
 
 dependencies {

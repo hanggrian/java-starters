@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":$RELEASE_ARTIFACT"))
+    implementation(project(":$RELEASE_ARTIFACT-extension"))
     implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.multidex)

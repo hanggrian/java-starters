@@ -1,12 +1,3 @@
-import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.LibraryPlugin
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import com.vanniktech.maven.publish.SonatypeHost
-
 val DEVELOPER_ID: String by project
 val DEVELOPER_NAME: String by project
 val DEVELOPER_URL: String by project
@@ -28,15 +19,30 @@ allprojects {
 }
 
 subprojects {
-    plugins.withType<LibraryPlugin>().configureEach {
-        configure<LibraryExtension>(::configureAndroid)
+    plugins.withType<com.android.build.gradle.LibraryPlugin>().configureEach {
+        modify(the<com.android.build.gradle.LibraryExtension>())
     }
-    plugins.withType<AppPlugin>().configureEach {
-        configure<BaseAppModuleExtension>(::configureAndroid)
+    plugins.withType<com.android.build.gradle.AppPlugin>().configureEach {
+        modify(the<com.android.build.gradle.internal.dsl.BaseAppModuleExtension>())
     }
-    plugins.withType<MavenPublishBasePlugin> {
-        configure<MavenPublishBaseExtension> {
-            publishToMavenCentral(SonatypeHost.S01)
+    plugins.withType<CheckstylePlugin>().configureEach {
+        configure<CheckstyleExtension> {
+            toolVersion = libs.versions.checkstyle.get()
+            configFile = rootDir.resolve("rulebook_checks.xml")
+        }
+        // only in Android, checkstyle task need to be manually defined
+        tasks.register<Checkstyle>("checkstyle") {
+            group = LifecycleBasePlugin.VERIFICATION_GROUP
+            source("src")
+            include("**/*.java")
+            exclude("**/gen/**", "**/R.java")
+            classpath = files()
+        }
+    }
+    plugins.withType<com.vanniktech.maven.publish.MavenPublishBasePlugin> {
+        configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
+            configure(com.vanniktech.maven.publish.AndroidSingleVariantLibrary())
+            publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.Companion.S01)
             signAllPublications()
             pom {
                 name.set(project.name)
@@ -66,7 +72,7 @@ subprojects {
     }
 }
 
-fun configureAndroid(extension: BaseExtension) {
+fun modify(extension: com.android.build.gradle.BaseExtension) {
     extension.setCompileSdkVersion(libs.versions.sdk.target.get().toInt())
     extension.defaultConfig {
         minSdk = libs.versions.sdk.min.get().toInt()
