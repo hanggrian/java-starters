@@ -16,7 +16,6 @@ pages = "com.hendraanggrian.pages:0.1"
 
 [libraries]
 # lint
-checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
 rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.3"
 # main
 kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"

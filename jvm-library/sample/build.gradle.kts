@@ -1,4 +1,4 @@
-val RELEASE_ARTIFACT: String by project
+val releaseArtifact: String by project
 
 plugins {
     java
@@ -8,6 +8,6 @@ plugins {
 application.mainClass.set("com.example.App")
 
 dependencies {
-    implementation(project(":$RELEASE_ARTIFACT"))
-    implementation(project(":$RELEASE_ARTIFACT-extension"))
+    implementation(project(":$releaseArtifact"))
+    implementation(project(":$releaseArtifact-extension"))
 }

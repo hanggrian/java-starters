@@ -1,6 +1,6 @@
-val RELEASE_GROUP: String by project
-val RELEASE_ARTIFACT: String by project
-val RELEASE_VERSION: String by project
+val releaseGroup: String by project
+val releaseArtifact: String by project
+val releaseVersion: String by project
 
 plugins {
     alias(libs.plugins.android.application)
@@ -11,13 +11,13 @@ plugins {
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get().toInt()))
 
 android {
-    namespace = "$RELEASE_GROUP.$RELEASE_ARTIFACT"
+    namespace = "$releaseGroup.$releaseArtifact"
     testNamespace = "$namespace.test"
     compileSdk = libs.versions.sdk.target.get().toInt()
     defaultConfig {
         minSdk = libs.versions.sdk.min.get().toInt()
         targetSdk = libs.versions.sdk.target.get().toInt()
-        version = RELEASE_VERSION
+        version = releaseVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         applicationId = namespace
@@ -44,7 +44,6 @@ checkstyle {
 }
 
 dependencies {
-    checkstyle(libs.checkstyle)
     checkstyle(libs.rulebook.checkstyle)
 
     implementation(libs.material)

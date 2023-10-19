@@ -1,4 +1,4 @@
-val RELEASE_ARTIFACT: String by project
+val releaseArtifact: String by project
 
 plugins {
     `java-library`
@@ -8,10 +8,9 @@ plugins {
 }
 
 dependencies {
-    checkstyle(libs.checkstyle)
     checkstyle(libs.rulebook.checkstyle)
 
-    implementation(project(":$RELEASE_ARTIFACT"))
+    implementation(project(":$releaseArtifact"))
 
     testImplementation(libs.truth)
 }

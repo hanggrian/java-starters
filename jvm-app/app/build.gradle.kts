@@ -1,4 +1,4 @@
-val RELEASE_GROUP: String by project
+val releaseGroup: String by project
 
 plugins {
     java
@@ -9,7 +9,7 @@ plugins {
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get()))
 
-application.mainClass.set("$RELEASE_GROUP.app.App")
+application.mainClass.set("$releaseGroup.app.App")
 
 checkstyle {
     toolVersion = libs.versions.checkstyle.get()
@@ -17,7 +17,6 @@ checkstyle {
 }
 
 dependencies {
-    checkstyle(libs.checkstyle)
     checkstyle(libs.rulebook.checkstyle)
 
     testImplementation(libs.truth)

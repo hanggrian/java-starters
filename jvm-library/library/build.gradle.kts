@@ -6,7 +6,6 @@ plugins {
 }
 
 dependencies {
-    checkstyle(libs.checkstyle)
     checkstyle(libs.rulebook.checkstyle)
 
     testImplementation(libs.truth)
