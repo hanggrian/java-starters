@@ -9,7 +9,7 @@ pages = "com.hendraanggrian.pages:0.1"
 
 [libraries]
 # lint
-rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.3"
+rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.4"
 # main
 # test
 truth = "com.google.truth:truth:1.1.5"

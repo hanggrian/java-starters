@@ -16,7 +16,7 @@ pages = "com.hendraanggrian.pages:0.1"
 
 [libraries]
 # lint
-rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.3"
+rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.4"
 # main
 kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 material = { module = "com.google.android.material:material", version.ref = "androidx" }
