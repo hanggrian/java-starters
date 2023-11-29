@@ -13,6 +13,11 @@ android {
     testNamespace = "$namespace.test"
     buildFeatures.buildConfig = false
     testOptions.unitTests.isIncludeAndroidResources = true
+    buildTypes {
+        debug {
+            enableAndroidTestCoverage = true
+        }
+    }
 }
 
 dependencies {

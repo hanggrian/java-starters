@@ -9,5 +9,5 @@ application.mainClass.set("com.example.App")
 
 dependencies {
     implementation(project(":$releaseArtifact"))
-    implementation(project(":$releaseArtifact-extension"))
+    implementation(project(":$releaseArtifact-ext"))
 }

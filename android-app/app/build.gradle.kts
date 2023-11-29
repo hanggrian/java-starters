@@ -26,6 +26,7 @@ android {
         targetCompatibility = JavaVersion.toVersion(libs.versions.jdk.get())
         sourceCompatibility = JavaVersion.toVersion(libs.versions.jdk.get())
     }
+    testOptions.unitTests.isIncludeAndroidResources = true
     buildTypes {
         debug {
             enableAndroidTestCoverage = true
@@ -35,7 +36,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 checkstyle {

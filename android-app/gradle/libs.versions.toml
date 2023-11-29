@@ -1,5 +1,5 @@
 [versions]
-jdk = "11" # min for android
+jdk = "17" # min for android
 checkstyle = "8.45.1"
 sdk-min = "14"
 sdk-target = "33"
