@@ -1,6 +1,6 @@
 [versions]
 jdk = "17" # min for android
-checkstyle = "8.45.1"
+checkstyle = "10.17.0"
 sdk-min = "14"
 sdk-target = "33"
 android-plugin = "8.1.0"
@@ -9,12 +9,12 @@ androidx-test = "1.5.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }
-git-publish = "org.ajoberstar.git-publish:4.2.0"
+git-publish = "org.ajoberstar.git-publish:4.2.2"
 pages = "com.hendraanggrian.pages:0.1"
 
 [libraries]
 # lint
-rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.4"
+rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.1"
 # main
 material = { module = "com.google.android.material:material", version.ref = "androidx" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx" }
@@ -25,7 +25,7 @@ androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-te
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
 androidx-test-junit = "androidx.test.ext:junit:1.1.5"
 robolectric = "org.robolectric:robolectric:4.10.3"
-truth = "com.google.truth:truth:1.1.5"
+truth = "com.google.truth:truth:1.4.4"
 
 [bundles]
 androidx-test = [

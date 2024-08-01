@@ -1,16 +1,16 @@
 # Java Starters
 
-![Repository logo.](https://github.com/hendraanggrian/java-starters/raw/assets/logo.png)
+![The repository logo.](https://github.com/hendraanggrian/java-starters/raw/assets/logo.png)
 
 Personal Gradle project templates with emphasis on **Java**, separated by target
 platform and kind of distribution.
 
-| | Plugins | Publication | Testing |
-| --- | :---: | :---: | :---: |
-| android-app | [Android] | &cross; | [Robolectric] |
-| android-library | [Android] | [Maven Central] | [Robolectric] |
-| jvm-app | [Application] | &cross; | &cross; |
-| jvm-library | &cross; | [Maven Central] | &cross; |
+| | Plugins | Publication | Testing
+--- | :---: | :---: | :---:
+android-app | [Android] | &cross; | [Robolectric]
+android-library | [Android] | [Maven Central] | [Robolectric]
+jvm-app | [Application] | &cross; | &cross;
+jvm-library | &cross; | [Maven Central] | &cross;
 
 ## Java Frameworks
 
@@ -27,8 +27,8 @@ platform and kind of distribution.
     and [gitignore](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files/)
     file.
   - [EditorConfig](https://editorconfig.org/) enforces IDE settings.
-  - [Travis CI](https://travis-ci.com/) to run test every commit, also triggers
-    [Codecov](https://about.codecov.io/) integration within Travis CI.
+  - [CircleCI](https://circleci.com/) to run test every commit, also triggers
+    [Codecov](https://about.codecov.io/) integration within Circle CI.
 - Gradle build tool:
   - [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
     scripts with properties delegation.

@@ -38,10 +38,7 @@ android {
     }
 }
 
-checkstyle {
-    toolVersion = libs.versions.checkstyle.get()
-    configFile = rootDir.resolve("rulebook_checks.xml")
-}
+checkstyle.toolVersion = libs.versions.checkstyle.get()
 
 dependencies {
     checkstyle(libs.rulebook.checkstyle)

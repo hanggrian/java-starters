@@ -22,10 +22,7 @@ subprojects {
             .set(JavaLanguageVersion.of(libs.versions.jdk.get().toInt()))
     }
     plugins.withType<CheckstylePlugin>().configureEach {
-        configure<CheckstyleExtension> {
-            toolVersion = libs.versions.checkstyle.get()
-            configFile = rootDir.resolve("rulebook_checks.xml")
-        }
+        the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
     }
     plugins.withType<com.vanniktech.maven.publish.MavenPublishBasePlugin> {
         configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
@@ -34,7 +31,7 @@ subprojects {
                     com.vanniktech.maven.publish.JavadocJar.Javadoc()
                 )
             )
-            publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.S01)
+            publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
             signAllPublications()
             pom {
                 name.set(project.name)

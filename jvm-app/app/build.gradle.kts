@@ -11,10 +11,7 @@ java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get(
 
 application.mainClass.set("$releaseGroup.app.App")
 
-checkstyle {
-    toolVersion = libs.versions.checkstyle.get()
-    configFile = rootDir.resolve("rulebook_checks.xml")
-}
+checkstyle.toolVersion = libs.versions.checkstyle.get()
 
 dependencies {
     checkstyle(libs.rulebook.checkstyle)

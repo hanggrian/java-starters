@@ -26,10 +26,7 @@ subprojects {
         modify(the<com.android.build.gradle.internal.dsl.BaseAppModuleExtension>())
     }
     plugins.withType<CheckstylePlugin>().configureEach {
-        configure<CheckstyleExtension> {
-            toolVersion = libs.versions.checkstyle.get()
-            configFile = rootDir.resolve("rulebook_checks.xml")
-        }
+        the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
         // only in Android, checkstyle task need to be manually defined
         tasks.register<Checkstyle>("checkstyle") {
             group = LifecycleBasePlugin.VERIFICATION_GROUP
@@ -42,7 +39,7 @@ subprojects {
     plugins.withType<com.vanniktech.maven.publish.MavenPublishBasePlugin> {
         configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
             configure(com.vanniktech.maven.publish.AndroidSingleVariantLibrary())
-            publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.Companion.S01)
+            publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
             signAllPublications()
             pom {
                 name.set(project.name)
