@@ -4,7 +4,7 @@ checkstyle = "10.17.0"
 
 [plugins]
 git-publish = "org.ajoberstar.git-publish:4.2.2"
-pages = "com.hendraanggrian.pages:0.1"
+pages = "com.hanggrian.pages:0.1"
 
 [libraries]
 # lint

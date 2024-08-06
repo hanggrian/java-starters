@@ -10,7 +10,7 @@ androidx-test = "1.5.0"
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }
 git-publish = "org.ajoberstar.git-publish:4.2.2"
-pages = "com.hendraanggrian.pages:0.1"
+pages = "com.hanggrian.pages:0.1"
 
 [libraries]
 # lint
