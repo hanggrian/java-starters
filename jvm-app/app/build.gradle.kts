@@ -1,5 +1,8 @@
 val releaseGroup: String by project
 
+val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
+val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+
 plugins {
     java
     application
@@ -7,7 +10,7 @@ plugins {
     jacoco
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get()))
+java.toolchain.languageVersion.set(jdkVersion)
 
 application.mainClass.set("$releaseGroup.app.App")
 
@@ -17,4 +20,8 @@ dependencies {
     checkstyle(libs.rulebook.checkstyle)
 
     testImplementation(libs.truth)
+}
+
+tasks.compileJava {
+    options.release = jreVersion.asInt()
 }

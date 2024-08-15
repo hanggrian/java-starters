@@ -1,9 +1,10 @@
 [versions]
-jdk = "17" # min for android
+jdk = "21"
+jre = "8"
 checkstyle = "10.17.0"
 sdk-min = "14"
 sdk-target = "33"
-android-plugin = "8.1.0"
+android-plugin = "8.5.2"
 androidx = "1.6.0"
 androidx-test = "1.5.0"
 

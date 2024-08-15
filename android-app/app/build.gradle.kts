@@ -8,7 +8,10 @@ plugins {
     jacoco
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get().toInt()))
+val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
+val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+
+java.toolchain.languageVersion.set(jdkVersion)
 
 android {
     namespace = "$releaseGroup.$releaseArtifact"
@@ -23,8 +26,8 @@ android {
         applicationId = namespace
     }
     compileOptions {
-        targetCompatibility = JavaVersion.toVersion(libs.versions.jdk.get())
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.jdk.get())
+        sourceCompatibility = JavaVersion.toVersion(jreVersion)
+        targetCompatibility = JavaVersion.toVersion(jreVersion)
     }
     testOptions.unitTests.isIncludeAndroidResources = true
     buildTypes {
