@@ -1,7 +1,6 @@
 package com.example;
 
 import com.johndoe.library.Views;
-
 import javax.swing.JFrame;
 
 public class App {

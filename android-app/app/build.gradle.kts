@@ -3,6 +3,7 @@ val releaseArtifact: String by project
 val releaseVersion: String by project
 
 plugins {
+    kotlin("android") version "2.1.0"
     alias(libs.plugins.android.application)
     checkstyle
     jacoco
@@ -47,7 +48,7 @@ dependencies {
     checkstyle(libs.rulebook.checkstyle)
 
     implementation(libs.material)
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.multidex)
 
     testImplementation(libs.bundles.androidx.test)
