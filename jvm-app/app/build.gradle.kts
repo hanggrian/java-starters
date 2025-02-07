@@ -23,6 +23,11 @@ dependencies {
     testImplementation(libs.truth)
 }
 
-tasks.compileJava {
-    options.release = jreVersion.asInt()
+tasks {
+    compileJava {
+        options.release = jreVersion.asInt()
+    }
+    jacocoTestReport {
+        reports.xml.required = true
+    }
 }

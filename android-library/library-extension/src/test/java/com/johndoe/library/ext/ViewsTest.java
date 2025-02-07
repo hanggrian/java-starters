@@ -1,7 +1,8 @@
-package com.johndoe.library;
+package com.johndoe.library.ext;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.johndoe.library.test.R;
+import com.johndoe.library.View;
+import com.johndoe.library.ext.test.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

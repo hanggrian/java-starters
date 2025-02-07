@@ -6,7 +6,6 @@ plugins {
     kotlin("android") version "2.1.0"
     alias(libs.plugins.android.application)
     checkstyle
-    jacoco
 }
 
 val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
@@ -54,10 +53,12 @@ dependencies {
     testImplementation(libs.bundles.androidx.test)
 }
 
-tasks.register<Checkstyle>("checkstyle") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    source("src")
-    include("**/*.java")
-    exclude("**/gen/**", "**/R.java")
-    classpath = files()
+tasks {
+    register<Checkstyle>("checkstyle") {
+        group = LifecycleBasePlugin.VERIFICATION_GROUP
+        source("src")
+        include("**/*.java")
+        exclude("**/gen/**", "**/R.java")
+        classpath = files()
+    }
 }

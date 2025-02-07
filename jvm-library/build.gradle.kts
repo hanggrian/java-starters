@@ -1,8 +1,5 @@
-import com.vanniktech.maven.publish.JavaLibrary
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import com.vanniktech.maven.publish.SonatypeHost
+
+import com.vanniktech.maven.publish.*
 
 val developerId: String by project
 val developerName: String by project
@@ -65,8 +62,13 @@ subprojects {
         }
     }
 
-    tasks.withType<JavaCompile>().configureEach {
-        options.release = jreVersion.asInt()
+    tasks {
+        withType<JavaCompile>().configureEach {
+            options.release = jreVersion.asInt()
+        }
+        withType<JacocoReport>().configureEach {
+            reports.xml.required = true
+        }
     }
 }
 

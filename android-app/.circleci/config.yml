@@ -14,7 +14,7 @@ jobs:
     steps:
       - checkout
       - run: ./gradlew androidDependencies
-      - run: ./gradlew test jacocoTestReport
+      - run: ./gradlew test createDebugCoverageReport
       - codecov/upload
 
 workflows:
