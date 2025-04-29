@@ -6,6 +6,7 @@ plugins {
     kotlin("android") version "2.1.0"
     alias(libs.plugins.android.application)
     checkstyle
+    jacoco
 }
 
 val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
@@ -54,11 +55,57 @@ dependencies {
 }
 
 tasks {
-    register<Checkstyle>("checkstyle") {
+    val checkstyleAndroid by registering(Checkstyle::class) {
         group = LifecycleBasePlugin.VERIFICATION_GROUP
+        description = "Generate Android lint report"
+
         source("src")
         include("**/*.java")
         exclude("**/gen/**", "**/R.java")
         classpath = files()
+    }
+    check {
+        dependsOn(checkstyleAndroid)
+    }
+
+    withType<Test>().configureEach {
+        configure<JacocoTaskExtension> {
+            isIncludeNoLocationClasses = true
+            excludes = listOf("jdk.internal.*")
+        }
+    }
+    register<JacocoReport>("jacocoAndroid") {
+        group = "Reporting"
+        description = "Generate Android test coverage"
+
+        dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+        mustRunAfter("test")
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+        sourceDirectories.setFrom(layout.projectDirectory.dir("src/main/java"))
+        classDirectories.setFrom(
+            files(
+                fileTree(layout.buildDirectory.dir("intermediates/javac/")) {
+                    exclude(
+                        "**/R.class",
+                        "**/R\$*.class",
+                        "**/BuildConfig.*",
+                        "**/Manifest*.*",
+                        "**/*Test*.*",
+                        "**/*Args.*",
+                        "**/*Directions.*",
+                    )
+                },
+            ),
+        )
+        executionData.setFrom(
+            files(
+                fileTree(layout.buildDirectory) {
+                    include("**/*.exec", "**/*.ec")
+                }
+            ),
+        )
     }
 }

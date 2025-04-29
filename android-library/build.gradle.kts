@@ -33,7 +33,20 @@ allprojects {
 
 subprojects {
     plugins.withType<LibraryPlugin>().configureEach {
-        modify(the<LibraryExtension>())
+        configure<LibraryExtension> {
+            modify(this)
+            tasks.register<Javadoc>("javadocAndroid") {
+                source = sourceSets["main"].java.getSourceFiles()
+                classpath += files(bootClasspath)
+                classpath +=
+                    libraryVariants
+                        .find { it.name == "release" }!!
+                        .javaCompileProvider
+                        .get()
+                        .classpath
+                setDestinationDir(layout.buildDirectory.dir("docs/${project.name}").get().asFile)
+            }
+        }
     }
     plugins.withType<AppPlugin>().configureEach {
         modify(the<BaseAppModuleExtension>())
@@ -43,13 +56,63 @@ subprojects {
     }
     plugins.withType<CheckstylePlugin>().configureEach {
         the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
-        // only in Android, checkstyle task need to be manually defined
-        tasks.register<Checkstyle>("checkstyle") {
-            group = LifecycleBasePlugin.VERIFICATION_GROUP
-            source("src")
-            include("**/*.java")
-            exclude("**/gen/**", "**/R.java")
-            classpath = files()
+        tasks {
+            val checkstyleAndroid by registering(Checkstyle::class) {
+                group = LifecycleBasePlugin.VERIFICATION_GROUP
+                description = "Generate Android lint report"
+
+                source("src")
+                include("**/*.java")
+                exclude("**/gen/**", "**/R.java")
+                classpath = files()
+            }
+            named("check") {
+                dependsOn(checkstyleAndroid)
+            }
+        }
+    }
+    plugins.withType<JacocoPlugin>().configureEach {
+        tasks {
+            withType<Test>().configureEach {
+                configure<JacocoTaskExtension> {
+                    isIncludeNoLocationClasses = true
+                    excludes = listOf("jdk.internal.*")
+                }
+            }
+            register<JacocoReport>("jacocoAndroid") {
+                group = "Reporting"
+                description = "Generate Android test coverage"
+
+                dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+                mustRunAfter("test")
+                reports {
+                    xml.required.set(true)
+                    html.required.set(true)
+                }
+                sourceDirectories.setFrom(layout.projectDirectory.dir("src/main/java"))
+                classDirectories.setFrom(
+                    files(
+                        fileTree(layout.buildDirectory.dir("intermediates/javac/")) {
+                            exclude(
+                                "**/R.class",
+                                "**/R\$*.class",
+                                "**/BuildConfig.*",
+                                "**/Manifest*.*",
+                                "**/*Test*.*",
+                                "**/*Args.*",
+                                "**/*Directions.*",
+                            )
+                        },
+                    ),
+                )
+                executionData.setFrom(
+                    files(
+                        fileTree(layout.buildDirectory) {
+                            include("**/*.exec", "**/*.ec")
+                        }
+                    ),
+                )
+            }
         }
     }
     plugins.withType<MavenPublishBasePlugin> {

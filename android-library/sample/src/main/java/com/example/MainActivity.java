@@ -1,7 +1,7 @@
 package com.example;
 
 import android.os.Bundle;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.johndoe.library.ext.Views;
@@ -11,6 +11,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((FrameLayout) findViewById(R.id.layout)).addView(Views.create(this));
+        ((RelativeLayout) findViewById(R.id.layout)).addView(Views.create(this));
     }
 }

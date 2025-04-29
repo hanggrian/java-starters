@@ -66,6 +66,12 @@ subprojects {
         withType<JavaCompile>().configureEach {
             options.release = jreVersion.asInt()
         }
+        withType<Javadoc>().configureEach {
+            setDestinationDir(layout.buildDirectory.dir("docs/${project.name}").get().asFile)
+        }
+        withType<Test>().configureEach {
+            useJUnitPlatform()
+        }
         withType<JacocoReport>().configureEach {
             reports.xml.required = true
         }

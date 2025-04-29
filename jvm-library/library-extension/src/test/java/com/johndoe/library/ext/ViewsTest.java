@@ -1,12 +1,12 @@
 package com.johndoe.library.ext;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static com.google.common.truth.Truth.assertThat;
 
 public class ViewsTest {
     @Test
     public void test() {
-        assertNotNull(Views.create());
+        assertThat(Views.create()).isNotNull();
     }
 }

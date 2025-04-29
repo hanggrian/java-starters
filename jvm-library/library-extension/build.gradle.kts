@@ -12,5 +12,9 @@ dependencies {
 
     implementation(project(":$releaseArtifact"))
 
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
     testImplementation(libs.truth)
+
+    testRuntimeOnly(libs.junit.platform.launcher)
 }

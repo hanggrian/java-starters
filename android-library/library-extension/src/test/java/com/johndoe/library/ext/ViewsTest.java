@@ -1,5 +1,6 @@
 package com.johndoe.library.ext;
 
+import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
 import com.johndoe.library.View;
 import com.johndoe.library.ext.test.R;
@@ -8,11 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.robolectric.annotation.internal.DoNotInstrument;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.LOLLIPOP)
 @DoNotInstrument
 public class ViewsTest {
     private AppCompatActivity activity;
@@ -26,6 +29,6 @@ public class ViewsTest {
 
     @Test
     public void test() {
-        assertEquals("Hello World", Views.create(activity).getText());
+        assertEquals(activity.getString(android.R.string.ok), Views.create(activity).getText());
     }
 }

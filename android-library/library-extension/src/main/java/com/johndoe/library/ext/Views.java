@@ -7,6 +7,6 @@ public final class Views {
     private Views() {}
 
     public static View create(Context context) {
-    return new View(context);
+        return new View(context);
     }
 }

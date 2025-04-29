@@ -13,7 +13,7 @@ jobs:
     executor: linux
     steps:
       - checkout
-      - run: ./gradlew test jacocoTestReport
+      - run: ./gradlew check jacocoTestReport
       - codecov/upload
 
 workflows:

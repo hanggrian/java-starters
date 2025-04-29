@@ -1,12 +1,12 @@
 package com.johndoe.app;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 
 public class ViewTest {
     @Test
     public void test() {
-        assertEquals("Hello World", new View().getText());
+        assertThat(new View().getText()).isEqualTo("Hello World");
     }
 }

@@ -20,12 +20,19 @@ checkstyle.toolVersion = libs.versions.checkstyle.get()
 dependencies {
     checkstyle(libs.rulebook.checkstyle)
 
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
     testImplementation(libs.truth)
+
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks {
     compileJava {
         options.release = jreVersion.asInt()
+    }
+    test {
+        useJUnitPlatform()
     }
     jacocoTestReport {
         reports.xml.required = true

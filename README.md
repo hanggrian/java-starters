@@ -1,25 +1,27 @@
 # Java Starters
 
-![The repository logo.](https://github.com/hendraanggrian/java-starters/raw/assets/logo.png)
+![](https://github.com/hanggrian/java-starters/raw/assets/logo.png)
 
-Personal Gradle project templates with emphasis on **Java**, separated by target
+Personal Gradle project templates with emphasis on **Java,** separated by target
 platform and kind of distribution.
 
-| | Plugins | Publication | Testing
---- | :---: | :---: | :---:
-android-app | [Android] | &cross; | [Robolectric]
-android-library | [Android] | [Maven Central] | [Robolectric]
-jvm-app | [Application] | &cross; | &cross;
-jvm-library | &cross; | [Maven Central] | &cross;
+| | Plugins | Testing | Publishing | Website | Coverage | Max Heap Size
+--- | :---: | :---: | :---: | :---: | :---: | :---:
+android-app | [Android] | [JUnit 4], [Robolectric] | &cross; | [Cayman] | &check; | 4GB
+android-library | [Android] | [JUnit 4], [Robolectric] | [Maven Central] | [Javadoc], [Minimal] | &check; | 4GB
+gradle-plugin | [Java] | [JUnit 4] | [Plugin Portal] | [Javadoc], [Minimal] | &cross; | 2GB
+jvm-app | [Java], [Application] | [JUnit 5] | &cross; | [Cayman] | &check; | 2GB
+jvm-library | [Java Library] | [JUnit 5] | [Maven Central] | [Javadoc], [Minimal] | &check; | 2GB
 
-## Java Frameworks
+## Java frameworks
 
+- JUnit testing framework with [Truth](https://truth.dev/) asserter.
 - [Checkstyle](https://checkstyle.sourceforge.io/) code linter with third-party
   ruleset [Rulebook](https://github.com/hendraanggrian/rulebook/).
 - [JaCoCo](https://docs.gradle.org/current/userguide/jacoco_plugin.html) code
   coverage.
 
-## Project Layout
+## Project layout
 
 - GitHub project layout:
   - GitHub [README](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes/),
@@ -37,12 +39,19 @@ jvm-library | &cross; | [Maven Central] | &cross;
     in TOML file to avoid typing unsafe dependencies.
 - Website module:
   - [Pages Gradle Plugin](https://github.com/hendraanggrian/pages-gradle-plugin/)
-    for generating webpage displaying README's content and documentation links
-    (except for apps).
+    for generating webpage displaying README's content and documentation links.
   - [gradle-git-publish](https://github.com/ajoberstar/gradle-git-publish/)
     plugin, necessary for uploading to [GitHub Pages](https://pages.github.com/).
 
+[Java]: https://docs.gradle.org/current/userguide/java_plugin.html
+[Java Library]: https://docs.gradle.org/current/userguide/java_library_plugin.html
 [Application]: https://docs.gradle.org/current/userguide/application_plugin.html
 [Android]: https://developer.android.com/studio/build/
-[Maven Central]: https://search.maven.org/
-[Robolectric]: http://robolectric.org/
+[JUnit 4]: https://junit.org/junit4/
+[JUnit 5]: https://junit.org/junit5/
+[Robolectric]: https://robolectric.org/
+[Plugin Portal]: https://plugins.gradle.org/
+[Maven Central]: https://central.sonatype.com/
+[Javadoc]: https://docs.gradle.org/current/dsl/org.gradle.api.tasks.javadoc.Javadoc.html
+[Cayman]: https://hanggrian.github.io/cayman-dark-theme/
+[Minimal]: https://hanggrian.github.io/minimal-dark-theme/

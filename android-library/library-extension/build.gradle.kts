@@ -5,6 +5,7 @@ plugins {
     kotlin("android") version "2.1.0"
     alias(libs.plugins.android.library)
     checkstyle
+    jacoco
     alias(libs.plugins.maven.publish)
 }
 

@@ -11,7 +11,11 @@ plugins {
 }
 
 pages {
-    resources.from("src")
+    resources.from(
+        "src",
+        "$rootDir/$releaseArtifact/build/docs/",
+        "$rootDir/$releaseArtifact-extension/build/docs/",
+    )
     styles.add("styles/prism-tomorrow.css")
     scripts.addAll(
         "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js",
@@ -24,6 +28,8 @@ pages {
         projectName = releaseArtifact
         projectDescription = releaseDescription
         projectUrl = releaseUrl
+        button("Documentation\nlibrary", "library/")
+        button("Documentation\nlibrary-extension", "library-extension/")
     }
 }
 
@@ -33,6 +39,14 @@ gitPublish {
     contents.from(pages.outputDirectory)
 }
 
-tasks.register(LifecycleBasePlugin.CLEAN_TASK_NAME) {
-    delete(layout.buildDirectory)
+tasks {
+    register(LifecycleBasePlugin.CLEAN_TASK_NAME) {
+        delete(layout.buildDirectory)
+    }
+    deployResources {
+        dependsOn(
+            ":$releaseArtifact:javadocAndroid",
+            ":$releaseArtifact-extension:javadocAndroid",
+        )
+    }
 }
