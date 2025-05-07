@@ -3,7 +3,9 @@ package com.example;
 import com.johndoe.library.ext.Views;
 import javax.swing.JFrame;
 
-public class App {
+final class App {
+    private App() {}
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.add(Views.create());

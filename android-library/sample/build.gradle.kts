@@ -3,6 +3,7 @@ val releaseArtifact: String by project
 plugins {
     kotlin("android") version "2.1.0"
     alias(libs.plugins.android.application)
+    checkstyle
 }
 
 android {
@@ -15,6 +16,8 @@ android {
 }
 
 dependencies {
+    checkstyle(libs.rulebook.checkstyle)
+
     implementation(project(":$releaseArtifact"))
     implementation(project(":$releaseArtifact-extension"))
     implementation(libs.material)

@@ -2,7 +2,7 @@
 
 ![](https://github.com/hanggrian/java-starters/raw/assets/logo.png)
 
-Personal Gradle project templates with emphasis on **Java,** separated by target
+Common Gradle project templates with emphasis on **Java,** separated by target
 platform and kind of distribution.
 
 | | Plugins | Testing | Publishing | Website | Coverage | Max Heap Size
@@ -13,7 +13,7 @@ gradle-plugin | [Java] | [JUnit 4] | [Plugin Portal] | [Javadoc], [Minimal] | &c
 jvm-app | [Java], [Application] | [JUnit 5] | &cross; | [Cayman] | &check; | 2GB
 jvm-library | [Java Library] | [JUnit 5] | [Maven Central] | [Javadoc], [Minimal] | &check; | 2GB
 
-## Java frameworks
+## Frameworks
 
 - JUnit testing framework with [Truth](https://truth.dev/) asserter.
 - [Checkstyle](https://checkstyle.sourceforge.io/) code linter with third-party
