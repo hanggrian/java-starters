@@ -16,4 +16,12 @@ rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.1"
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = "org.junit.platform:junit-platform-launcher:1.12.2"
+mockito-junit-jupiter = "org.mockito:mockito-junit-jupiter:5.18.0"
 truth = "com.google.truth:truth:1.4.4"
+
+[bundles]
+junit5 = [
+  "junit-jupiter",
+  "mockito-junit-jupiter",
+  "truth",
+]

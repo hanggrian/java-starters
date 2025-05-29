@@ -9,8 +9,7 @@ dependencies {
     checkstyle(libs.rulebook.checkstyle)
 
     testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.truth)
+    testImplementation(libs.bundles.junit5)
 
     testRuntimeOnly(libs.junit.platform.launcher)
 }

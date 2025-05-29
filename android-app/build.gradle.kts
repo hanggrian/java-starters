@@ -47,7 +47,14 @@ android {
     }
 }
 
-checkstyle.toolVersion = libs.versions.checkstyle.get()
+checkstyle {
+    toolVersion = libs.versions.checkstyle.get()
+    configProperties =
+        mapOf(
+            "checkstyle.suppressions.file" to
+                "$rootDir/config/checkstyle/suppressions.xml",
+        )
+}
 
 dependencies {
     checkstyle(libs.rulebook.checkstyle)
@@ -56,7 +63,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.multidex)
 
-    testImplementation(libs.bundles.androidx.test)
+    testImplementation(libs.bundles.junit4)
 }
 
 tasks {
@@ -109,7 +116,7 @@ tasks {
             files(
                 fileTree(layout.buildDirectory) {
                     include("**/*.exec", "**/*.ec")
-                }
+                },
             ),
         )
     }

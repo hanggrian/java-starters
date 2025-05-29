@@ -26,5 +26,5 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
 
-    testImplementation(libs.bundles.androidx.test)
+    testImplementation(libs.bundles.junit4)
 }

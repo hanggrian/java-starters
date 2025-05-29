@@ -15,7 +15,8 @@ jvm-library | [Java Library] | [JUnit 5] | [Maven Central] | [Javadoc], [Minimal
 
 ## Frameworks
 
-- JUnit testing framework with [Truth](https://truth.dev/) asserter.
+- JUnit testing framework with [Mockito](https://site.mockito.org/) suite and
+  [Truth](https://truth.dev/) asserter.
 - [Checkstyle](https://checkstyle.sourceforge.io/) code linter with third-party
   ruleset [Rulebook](https://github.com/hendraanggrian/rulebook/).
 - [JaCoCo](https://docs.gradle.org/current/userguide/jacoco_plugin.html) code

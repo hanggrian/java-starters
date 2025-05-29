@@ -36,7 +36,7 @@ dependencies {
     compileOnly(gradleApi())
 
     testImplementation(gradleTestKit())
-    testImplementation(libs.truth)
+    testImplementation(libs.bundles.junit4)
 }
 
 tasks {

@@ -13,8 +13,7 @@ dependencies {
     implementation(project(":$releaseArtifact"))
 
     testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.truth)
+    testImplementation(libs.bundles.junit5)
 
     testRuntimeOnly(libs.junit.platform.launcher)
 }

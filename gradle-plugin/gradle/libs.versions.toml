@@ -13,4 +13,13 @@ pages = "com.hanggrian.pages:0.2"
 rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.1"
 # main
 # test
+junit = "junit:junit:4.13.2"
+mockito-core = "org.mockito:mockito-core:5.18.0"
 truth = "com.google.truth:truth:1.4.4"
+
+[bundles]
+junit4 = [
+  "junit",
+  "mockito-core",
+  "truth",
+]

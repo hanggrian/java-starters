@@ -55,7 +55,14 @@ subprojects {
         the<JavaPluginExtension>().toolchain.languageVersion.set(jdkVersion)
     }
     plugins.withType<CheckstylePlugin>().configureEach {
-        the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
+        configure<CheckstyleExtension> {
+            toolVersion = libs.versions.checkstyle.get()
+            configProperties =
+                mapOf(
+                    "checkstyle.suppressions.file" to
+                        "$rootDir/config/checkstyle/suppressions.xml",
+                )
+        }
         tasks {
             val checkstyleAndroid by registering(Checkstyle::class) {
                 group = LifecycleBasePlugin.VERIFICATION_GROUP
@@ -109,7 +116,7 @@ subprojects {
                     files(
                         fileTree(layout.buildDirectory) {
                             include("**/*.exec", "**/*.ec")
-                        }
+                        },
                     ),
                 )
             }

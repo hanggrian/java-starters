@@ -18,8 +18,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 
 public class MyPluginTest {
-    @Rule
-    public TemporaryFolder testProjectDir = new TemporaryFolder();
+    @Rule public TemporaryFolder testProjectDir = new TemporaryFolder();
     private File buildFile;
     private GradleRunner runner;
 
@@ -31,7 +30,8 @@ public class MyPluginTest {
                          Files.newOutputStream(
                              testProjectDir.newFile("settings.gradle.kts").toPath()
                          ),
-                         StandardCharsets.UTF_8)
+                         StandardCharsets.UTF_8
+                     )
                  )
         ) {
             writer.write("rootProject.name = \"functional-test\"");
@@ -51,14 +51,16 @@ public class MyPluginTest {
                  new BufferedWriter(
                      new OutputStreamWriter(
                          Files.newOutputStream(buildFile.toPath()),
-                         StandardCharsets.UTF_8)
+                         StandardCharsets.UTF_8
+                     )
                  )
         ) {
             writer.write(
-                "plugins {\n"
-                    + "    id(\"com.johndoe.plugin\")\n"
-                    + "}\n"
-                    + "\n"
+                """
+                plugins {
+                    id("com.johndoe.plugin")
+                }
+                """
             );
         }
         assertThat(
