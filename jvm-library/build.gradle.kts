@@ -2,7 +2,6 @@ import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import com.vanniktech.maven.publish.SonatypeHost
 
 val developerId: String by project
 val developerName: String by project
@@ -13,8 +12,8 @@ val releaseVersion: String by project
 val releaseDescription: String by project
 val releaseUrl: String by project
 
-val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
-val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
+val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
 
 plugins {
     alias(libs.plugins.maven.publish) apply false
@@ -27,7 +26,7 @@ allprojects {
 
 subprojects {
     plugins.withType<JavaLibraryPlugin>().configureEach {
-        the<JavaPluginExtension>().toolchain.languageVersion.set(jdkVersion)
+        the<JavaPluginExtension>().toolchain.languageVersion.set(javaCompileVersion)
     }
     plugins.withType<CheckstylePlugin>().configureEach {
         the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
@@ -35,7 +34,7 @@ subprojects {
     plugins.withType<MavenPublishBasePlugin> {
         configure<MavenPublishBaseExtension> {
             configure(JavaLibrary(JavadocJar.Javadoc()))
-            publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+            publishToMavenCentral()
             signAllPublications()
             pom {
                 name.set(project.name)
@@ -67,10 +66,10 @@ subprojects {
 
     tasks {
         withType<JavaCompile>().configureEach {
-            options.release = jreVersion.asInt()
+            options.release = javaSupportVersion.asInt()
         }
         withType<Javadoc>().configureEach {
-            setDestinationDir(layout.buildDirectory.dir("docs/${project.name}").get().asFile)
+            destinationDir = layout.buildDirectory.dir("docs/${project.name}").get().asFile
         }
         withType<Test>().configureEach {
             useJUnitPlatform()

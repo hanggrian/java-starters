@@ -4,8 +4,8 @@ val releaseGroup: String by project
 val releaseDescription: String by project
 val releaseUrl: String by project
 
-val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
-val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
+val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
 
 plugins {
     java
@@ -13,7 +13,7 @@ plugins {
     alias(libs.plugins.gradle.publish)
 }
 
-java.toolchain.languageVersion.set(jdkVersion)
+java.toolchain.languageVersion.set(javaCompileVersion)
 
 checkstyle.toolVersion = libs.versions.checkstyle.get()
 
@@ -41,7 +41,7 @@ dependencies {
 
 tasks {
     compileJava {
-        options.release = jreVersion.asInt()
+        options.release = javaSupportVersion.asInt()
     }
     javadoc {
         setDestinationDir(layout.buildDirectory.dir("docs/${project.name}").get().asFile)

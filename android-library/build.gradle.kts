@@ -6,7 +6,6 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import com.vanniktech.maven.publish.SonatypeHost
 
 val developerId: String by project
 val developerName: String by project
@@ -17,8 +16,8 @@ val releaseVersion: String by project
 val releaseDescription: String by project
 val releaseUrl: String by project
 
-val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
-val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
+val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -44,7 +43,7 @@ subprojects {
                         .javaCompileProvider
                         .get()
                         .classpath
-                setDestinationDir(layout.buildDirectory.dir("docs/${project.name}").get().asFile)
+                destinationDir = layout.buildDirectory.dir("docs/${project.name}").get().asFile
             }
         }
     }
@@ -52,7 +51,7 @@ subprojects {
         modify(the<BaseAppModuleExtension>())
     }
     plugins.withType<JavaBasePlugin>().configureEach {
-        the<JavaPluginExtension>().toolchain.languageVersion.set(jdkVersion)
+        the<JavaPluginExtension>().toolchain.languageVersion.set(javaCompileVersion)
     }
     plugins.withType<CheckstylePlugin>().configureEach {
         configure<CheckstyleExtension> {
@@ -125,7 +124,7 @@ subprojects {
     plugins.withType<MavenPublishBasePlugin> {
         configure<MavenPublishBaseExtension> {
             configure(AndroidSingleVariantLibrary())
-            publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+            publishToMavenCentral()
             signAllPublications()
             pom {
                 name.set(project.name)
@@ -157,15 +156,15 @@ subprojects {
 }
 
 fun modify(extension: BaseExtension) {
-    extension.setCompileSdkVersion(libs.versions.sdk.target.get().toInt())
+    extension.setCompileSdkVersion(libs.versions.android.compile.get().toInt())
     extension.defaultConfig {
-        minSdk = libs.versions.sdk.min.get().toInt()
-        targetSdk = libs.versions.sdk.target.get().toInt()
+        targetSdk = libs.versions.android.compile.get().toInt()
+        minSdk = libs.versions.android.support.get().toInt()
         version = releaseVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     extension.compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(jreVersion)
-        targetCompatibility = JavaVersion.toVersion(jreVersion)
+        sourceCompatibility = JavaVersion.toVersion(javaSupportVersion)
+        targetCompatibility = JavaVersion.toVersion(javaSupportVersion)
     }
 }

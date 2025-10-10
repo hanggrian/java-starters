@@ -2,8 +2,8 @@ val releaseGroup: String by project
 val releaseVersion: String by project
 val releaseArtifact: String by project
 
-val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
-val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
+val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
 
 allprojects {
     group = releaseGroup
@@ -17,23 +17,23 @@ plugins {
     jacoco
 }
 
-java.toolchain.languageVersion.set(jdkVersion)
+java.toolchain.languageVersion.set(javaCompileVersion)
 
 android {
     namespace = "$releaseGroup.$releaseArtifact"
     testNamespace = "$namespace.test"
-    compileSdk = libs.versions.sdk.target.get().toInt()
+    compileSdk = libs.versions.android.compile.get().toInt()
     defaultConfig {
-        minSdk = libs.versions.sdk.min.get().toInt()
-        targetSdk = libs.versions.sdk.target.get().toInt()
+        targetSdk = libs.versions.android.compile.get().toInt()
+        minSdk = libs.versions.android.support.get().toInt()
         version = releaseVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         applicationId = namespace
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(jreVersion)
-        targetCompatibility = JavaVersion.toVersion(jreVersion)
+        sourceCompatibility = JavaVersion.toVersion(javaSupportVersion)
+        targetCompatibility = JavaVersion.toVersion(javaSupportVersion)
     }
     testOptions.unitTests.isIncludeAndroidResources = true
     buildTypes {
