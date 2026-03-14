@@ -1,16 +1,16 @@
 # Java Starters
 
-![](https://github.com/hanggrian/java-starters/raw/assets/logo.png)
+![Logo](https://github.com/hanggrian/java-starters/raw/assets/logo.png)
 
 Common Gradle project templates with emphasis on **Java,** separated by target
 platform and kind of distribution.
 
 | | Plugins | Testing | Publishing | Website | Coverage | Max Heap Size
 --- | :---: | :---: | :---: | :---: | :---: | :---:
-android-app | [Android] | [JUnit 4], [Robolectric] | &cross; | [Cayman] | &check; | 4GB
+android-application | [Android] | [JUnit 4], [Robolectric] | &cross; | [Cayman] | &check; | 4GB
 android-library | [Android] | [JUnit 4], [Robolectric] | [Maven Central] | [Javadoc], [Minimal] | &check; | 4GB
 gradle-plugin | [Java] | [JUnit 4] | [Plugin Portal] | [Javadoc], [Minimal] | &cross; | 2GB
-jvm-app | [Java], [Application] | [JUnit 5] | &cross; | [Cayman] | &check; | 2GB
+jvm-application | [Java], [Application] | [JUnit 5] | &cross; | [Cayman] | &check; | 2GB
 jvm-library | [Java Library] | [JUnit 5] | [Maven Central] | [Javadoc], [Minimal] | &check; | 2GB
 
 ## Frameworks
@@ -30,8 +30,10 @@ jvm-library | [Java Library] | [JUnit 5] | [Maven Central] | [Javadoc], [Minimal
     and [gitignore](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files/)
     file.
   - [EditorConfig](https://editorconfig.org/) enforces IDE settings.
-  - [CircleCI](https://circleci.com/) to run test every commit, also triggers
-    [Codecov](https://about.codecov.io/) integration within Circle CI.
+- [CircleCI](https://circleci.com/) workflow:
+  - Run tests, linters and push coverage to [Codecov](https://codecov.io/).
+  - Activate [Renovate](https://docs.renovatebot.com/) bot to alert out-of-date
+    dependencies.
 - Gradle build tool:
   - [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
     scripts with properties delegation.

@@ -13,4 +13,7 @@ dependencies {
 
     implementation(project(":$releaseArtifact"))
     implementation(project(":$releaseArtifact-extension"))
+    implementation(libs.dagger)
+
+    annotationProcessor(libs.dagger.compiler)
 }

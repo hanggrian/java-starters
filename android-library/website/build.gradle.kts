@@ -12,7 +12,7 @@ plugins {
 
 pages {
     resources.from(
-        "src",
+        "src/",
         "$rootDir/$releaseArtifact/build/docs/",
         "$rootDir/$releaseArtifact-extension/build/docs/",
     )
@@ -45,8 +45,8 @@ tasks {
     }
     deployResources {
         dependsOn(
-            ":$releaseArtifact:javadocAndroid",
-            ":$releaseArtifact-extension:javadocAndroid",
+            ":$releaseArtifact:javadocAndroidDebug",
+            ":$releaseArtifact-extension:javadocAndroidDebug",
         )
     }
 }

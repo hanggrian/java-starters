@@ -10,11 +10,11 @@ die() { echo; echo "$RED$*$END"; echo; exit 1; } >&2
 
 SOURCE_ROOT="$(cd "$(dirname "$0")" && pwd)" && readonly SOURCE_ROOT
 declare -a ANDROID_PROJECTS=(
-  "$(cd "$SOURCE_ROOT/android-app" && pwd)"
+  "$(cd "$SOURCE_ROOT/android-application" && pwd)"
   "$(cd "$SOURCE_ROOT/android-library" && pwd)"
 ) && readonly ANDROID_PROJECTS
 declare -a JAVA_PROJECTS=(
-  "$(cd "$SOURCE_ROOT/jvm-app" && pwd)"
+  "$(cd "$SOURCE_ROOT/jvm-application" && pwd)"
   "$(cd "$SOURCE_ROOT/jvm-library" && pwd)"
 ) && readonly JAVA_PROJECTS
 declare -a OTHER_PROJECTS=(
@@ -38,7 +38,7 @@ for project in "${ANDROID_PROJECTS[@]}"; do
 
   echo '(2/3) Checking coverage file'
   is_app=false
-  if [[ "$project" == *'-app' ]]; then
+  if [[ "$project" == *'-application' ]]; then
     is_app=true
     if [[ ! -e "$JACOCO_ANDROID_FILE" ]]; then
       die 'Coverage not found.'
@@ -72,7 +72,7 @@ for project in "${JAVA_PROJECTS[@]}"; do
 
   echo '(2/3) Checking coverage file'
   is_app=false
-  if [[ "$project" == *'-app' ]]; then
+  if [[ "$project" == *'-application' ]]; then
     is_app=true
     if [[ ! -e "$JACOCO_JAVA_FILE" ]]; then
       die 'Coverage not found.'
@@ -98,7 +98,7 @@ for project in "${JAVA_PROJECTS[@]}"; do
 done
 
 for project in "${OTHER_PROJECTS[@]}"; do
-  warn "Testing $GRADLE_PLUGIN_PROJECT..."
+  warn "Testing $project..."
 
   echo '(1/2) Running Gradle tasks'
   cd "$project" || exit 1

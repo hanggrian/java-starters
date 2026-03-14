@@ -3,30 +3,34 @@ java-compile = "21"
 java-support = "8"
 android-compile = "36"
 android-support = "21"
-android-plugin = "8.13.0"
-checkstyle = "10.25.0"
+android-plugin = "9.1.0"
+checkstyle = "11.1.0"
+hilt = "2.59.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-plugin" }
-maven-publish = "com.vanniktech.maven.publish.base:0.34.0"
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+maven-publish = "com.vanniktech.maven.publish.base:0.36.0"
 git-publish = "org.ajoberstar.git-publish:5.1.3"
-pages = "com.hanggrian.pages:0.2"
+pages = "com.hanggrian.pages:0.3"
 
 [libraries]
 # lint
-rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.1"
+rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.2"
 # main
 material = "com.google.android.material:material:1.13.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 androidx-core = "androidx.core:core:1.17.0"
-androidx-multidex = "androidx.multidex:multidex:2.0.1"
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+# annotation
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 # test
 androidx-test-core = "androidx.test:core:1.7.0"
 androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-test-junit = "androidx.test.ext:junit:1.3.0"
-mockito-core = "org.mockito:mockito-core:5.20.0"
-robolectric = "org.robolectric:robolectric:4.16"
+mockito-core = "org.mockito:mockito-core:5.23.0"
+robolectric = "org.robolectric:robolectric:4.16.1"
 truth = "com.google.truth:truth:1.4.5"
 
 [bundles]

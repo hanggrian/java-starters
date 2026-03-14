@@ -5,7 +5,7 @@ val releaseDescription: String by project
 val releaseUrl: String by project
 
 val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
-val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
+val javaSupportVersion = JavaVersion.toVersion(libs.versions.java.support.get())
 
 plugins {
     java
@@ -13,7 +13,11 @@ plugins {
     alias(libs.plugins.gradle.publish)
 }
 
-java.toolchain.languageVersion.set(javaCompileVersion)
+java {
+    toolchain.languageVersion.set(javaCompileVersion)
+    sourceCompatibility = javaSupportVersion
+    targetCompatibility = javaSupportVersion
+}
 
 checkstyle.toolVersion = libs.versions.checkstyle.get()
 
@@ -39,11 +43,6 @@ dependencies {
     testImplementation(libs.bundles.junit4)
 }
 
-tasks {
-    compileJava {
-        options.release = javaSupportVersion.asInt()
-    }
-    javadoc {
-        setDestinationDir(layout.buildDirectory.dir("docs/${project.name}").get().asFile)
-    }
+tasks.javadoc {
+    destinationDir = layout.buildDirectory.dir("docs/${project.name}/").get().asFile
 }

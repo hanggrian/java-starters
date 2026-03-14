@@ -5,6 +5,6 @@
   "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-  <suppress checks="IllegalThrow" files=".*TextViewImplTest\.java"/>
-  <suppress checks="IllegalThrow" files=".*TextViewExtImplTest\.java"/>
+  <suppress checks="IllegalCatch" files=".*ViewStatsTest\.java"/>
+  <suppress checks="IllegalCatch" files=".*ExtendedViewStatsTest\.java"/>
 </suppressions>

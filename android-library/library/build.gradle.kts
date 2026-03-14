@@ -2,7 +2,6 @@ val releaseGroup: String by project
 val releaseArtifact: String by project
 
 plugins {
-    kotlin("android") version "2.1.0"
     alias(libs.plugins.android.library)
     checkstyle
     jacoco

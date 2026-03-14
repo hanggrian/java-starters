@@ -1,0 +1,31 @@
+[versions]
+java-compile = "21"
+java-support = "8"
+junit = "5.14.3"
+checkstyle = "11.1.0"
+dagger = "2.59.2"
+
+[plugins]
+git-publish = "org.ajoberstar.git-publish:5.1.3"
+pages = "com.hanggrian.pages:0.3"
+
+[libraries]
+# lint
+rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.2"
+# main
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+# annotation
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+# test
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = "org.junit.platform:junit-platform-launcher:1.14.3"
+mockito-junit-jupiter = "org.mockito:mockito-junit-jupiter:5.23.0"
+truth = "com.google.truth:truth:1.4.5"
+
+[bundles]
+junit5 = [
+  "junit-jupiter",
+  "mockito-junit-jupiter",
+  "truth",
+]

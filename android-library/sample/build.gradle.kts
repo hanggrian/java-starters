@@ -1,8 +1,8 @@
 val releaseArtifact: String by project
 
 plugins {
-    kotlin("android") version "2.1.0"
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt)
     checkstyle
 }
 
@@ -13,6 +13,10 @@ android {
         applicationId = namespace
         multiDexEnabled = true
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -22,5 +26,7 @@ dependencies {
     implementation(project(":$releaseArtifact-extension"))
     implementation(libs.material)
     implementation(libs.androidx.core)
-    implementation(libs.androidx.multidex)
+    implementation(libs.hilt)
+
+    annotationProcessor(libs.hilt.compiler)
 }

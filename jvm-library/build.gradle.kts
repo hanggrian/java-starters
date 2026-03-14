@@ -13,7 +13,7 @@ val releaseDescription: String by project
 val releaseUrl: String by project
 
 val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
-val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
+val javaSupportVersion = JavaVersion.toVersion(libs.versions.java.support.get())
 
 plugins {
     alias(libs.plugins.maven.publish) apply false
@@ -26,7 +26,11 @@ allprojects {
 
 subprojects {
     plugins.withType<JavaLibraryPlugin>().configureEach {
-        the<JavaPluginExtension>().toolchain.languageVersion.set(javaCompileVersion)
+        configure<JavaPluginExtension> {
+            toolchain.languageVersion.set(javaCompileVersion)
+            sourceCompatibility = javaSupportVersion
+            targetCompatibility = javaSupportVersion
+        }
     }
     plugins.withType<CheckstylePlugin>().configureEach {
         the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
@@ -43,8 +47,8 @@ subprojects {
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                        distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        distribution.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
                 developers {
@@ -65,11 +69,8 @@ subprojects {
     }
 
     tasks {
-        withType<JavaCompile>().configureEach {
-            options.release = javaSupportVersion.asInt()
-        }
         withType<Javadoc>().configureEach {
-            destinationDir = layout.buildDirectory.dir("docs/${project.name}").get().asFile
+            destinationDir = layout.buildDirectory.dir("docs/${project.name}/").get().asFile
         }
         withType<Test>().configureEach {
             useJUnitPlatform()

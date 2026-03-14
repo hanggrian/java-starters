@@ -1,32 +1,35 @@
 package com.example;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.johndoe.library.ext.TextViewExtImpl;
-import java.util.Locale;
+import com.example.databinding.ActivityMainBinding;
+import com.johndoe.library.ext.ExtendedViewStats;
+import dagger.hilt.android.AndroidEntryPoint;
+import javax.inject.Inject;
+import javax.inject.Provider;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
-    private RelativeLayout layout;
+    private ActivityMainBinding binding;
+    @Inject
+    public Provider<ExtendedViewStats> statsProvider;
+    private ExtendedViewStats stats;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        layout = findViewById(R.id.layout);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.text.setText(getStats().getSize() + " pixels at " + getStats().getPosition());
+    }
 
-        TextView text = new TextView(this);
-        text.setX(50);
-        text.setY(50);
-        text.setWidth(300);
-        text.setHeight(100);
-
-        TextViewExtImpl impl = new TextViewExtImpl(text);
-        text.setText(String.format(Locale.getDefault(), "%d pixels", impl.getSize()));
-        text.setText(String.format("%s at %s", text.getText(), impl.getPosition()));
-
-        layout.addView(text);
+    public ExtendedViewStats getStats() {
+        if (stats == null) {
+            stats = statsProvider.get();
+        }
+        return stats;
     }
 }

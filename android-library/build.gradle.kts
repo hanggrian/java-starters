@@ -1,8 +1,9 @@
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
@@ -17,7 +18,7 @@ val releaseDescription: String by project
 val releaseUrl: String by project
 
 val javaCompileVersion = JavaLanguageVersion.of(libs.versions.java.compile.get())
-val javaSupportVersion = JavaLanguageVersion.of(libs.versions.java.support.get())
+val javaSupportVersion = JavaVersion.toVersion(libs.versions.java.support.get())
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -32,36 +33,51 @@ allprojects {
 
 subprojects {
     plugins.withType<LibraryPlugin>().configureEach {
-        configure<LibraryExtension> {
-            modify(this)
-            tasks.register<Javadoc>("javadocAndroid") {
-                source = sourceSets["main"].java.getSourceFiles()
-                classpath += files(bootClasspath)
-                classpath +=
-                    libraryVariants
-                        .find { it.name == "release" }!!
-                        .javaCompileProvider
-                        .get()
-                        .classpath
-                destinationDir = layout.buildDirectory.dir("docs/${project.name}").get().asFile
+        modify(the<LibraryExtension>())
+        configure<LibraryAndroidComponentsExtension> {
+            onVariants { variant ->
+                val taskName = "javadocAndroid${variant.name.replaceFirstChar { it.uppercase() }}"
+                tasks.register<Javadoc>(taskName) {
+                    description = "Generates Javadoc for ${variant.name}."
+                    group = "documentation"
+
+                    destinationDir = layout.buildDirectory.dir("docs/${project.name}/").get().asFile
+
+                    variant.sources.java?.all?.let { source(it) }
+                    classpath =
+                        configurations
+                            .getByName("${variant.name}CompileClasspath")
+                            .incoming
+                            .artifactView {
+                                attributes {
+                                    attribute(
+                                        Attribute.of("artifactType", String::class.java),
+                                        "android-classes-jar"
+                                    )
+                                }
+                            }.files +
+                            files(sdkComponents.bootClasspath)
+                    options {
+                        encoding = "UTF-8"
+                        (this as StandardJavadocDocletOptions).apply {
+                            links("https://developer.android.com/reference")
+                            addStringOption("Xdoclint:none", "-quiet")
+                        }
+                    }
+                    isFailOnError = false
+                    exclude("**/BuildConfig.java", "**/R.java")
+                }
             }
         }
     }
     plugins.withType<AppPlugin>().configureEach {
-        modify(the<BaseAppModuleExtension>())
+        modify(the<ApplicationExtension>())
     }
     plugins.withType<JavaBasePlugin>().configureEach {
         the<JavaPluginExtension>().toolchain.languageVersion.set(javaCompileVersion)
     }
     plugins.withType<CheckstylePlugin>().configureEach {
-        configure<CheckstyleExtension> {
-            toolVersion = libs.versions.checkstyle.get()
-            configProperties =
-                mapOf(
-                    "checkstyle.suppressions.file" to
-                        "$rootDir/config/checkstyle/suppressions.xml",
-                )
-        }
+        the<CheckstyleExtension>().toolVersion = libs.versions.checkstyle.get()
         tasks {
             val checkstyleAndroid by registering(Checkstyle::class) {
                 group = LifecycleBasePlugin.VERIFICATION_GROUP
@@ -89,11 +105,10 @@ subprojects {
                 group = "Reporting"
                 description = "Generate Android test coverage"
 
-                dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+                dependsOn("testDebugUnitTest")
                 mustRunAfter("test")
                 reports {
                     xml.required.set(true)
-                    html.required.set(true)
                 }
                 sourceDirectories.setFrom(layout.projectDirectory.dir("src/main/java"))
                 classDirectories.setFrom(
@@ -133,8 +148,8 @@ subprojects {
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                        distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        distribution.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
                 developers {
@@ -155,16 +170,15 @@ subprojects {
     }
 }
 
-fun modify(extension: BaseExtension) {
-    extension.setCompileSdkVersion(libs.versions.android.compile.get().toInt())
-    extension.defaultConfig {
-        targetSdk = libs.versions.android.compile.get().toInt()
+fun modify(extension: CommonExtension) {
+    extension.compileSdk = libs.versions.android.compile.get().toInt()
+    extension.defaultConfig.run {
         minSdk = libs.versions.android.support.get().toInt()
         version = releaseVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    extension.compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(javaSupportVersion)
-        targetCompatibility = JavaVersion.toVersion(javaSupportVersion)
+    extension.compileOptions.run {
+        sourceCompatibility = javaSupportVersion
+        targetCompatibility = javaSupportVersion
     }
 }
