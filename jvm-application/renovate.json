@@ -1,11 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "mode": "full",
   "prCreation": "not-pending",
   "internalChecksFilter": "strict",
   "ignoreDeps": [
-    // Checkstyle version is controlled by Rulebook
     "checkstyle"
   ]
 }
